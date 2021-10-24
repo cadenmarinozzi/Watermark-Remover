@@ -10,7 +10,7 @@ function loop() {
             for (let index = 0; index < elements.length; index++) {
                 let element = elements[index];
                 
-                if (element.href === "") {
+                if (element.href === link) {
                     element.remove();
                     removed = true;
                 }
