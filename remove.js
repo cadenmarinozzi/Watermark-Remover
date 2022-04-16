@@ -1,37 +1,19 @@
-let link = ""; // Put the watermark href/src link here
+const url = ''; // Put the watermark href/src link here
 
-function loop() {
+function animate() {
     let removed = false; // Put this above the function if you want to stop the loop after removing it once (Sometimes hosts don't loop create watermarks)
+    if (removed) return;
 
-    if (!removed) {
-        setTimeout(function() {
-            let elements = document.getElementsByTagName("a");
-            
-            for (let index = 0; index < elements.length; index++) {
-                let element = elements[index];
-                
-                if (element.href === link) {
-                    element.remove();
-                    removed = true;
-                }
-            }
+    const elements = document.querySelectorAll('a, img');
+    
+    elements.forEach(elem => {        
+        if (elem.href !== url && elem.src !== url) return;
 
-            if (!removed) { // Sometimes hosts use images for watermarks
-                let elements = document.getElementsByTagName("img");
-            
-                for (let index = 0; index < elements.length; index++) {
-                    let element = elements[index];
-                    
-                    if (element.src === link) {
-                        element.remove();
-                        removed = true;
-                    }
-                }
-            }
-            
-            loop();
-        }, 0);
-    }
+        elem.remove();
+        removed = true;
+    });
+
+    requestAnimationFrame(animate);
 }
 
-loop();
+animate();
